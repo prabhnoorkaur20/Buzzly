@@ -1,0 +1,89 @@
+/* .auth-container {
+    width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .auth-container input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
+  .auth-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .auth-container .error {
+    color: red;
+  }
+   */
+
+   .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 20px);
+    gap: 40px;
+  }
+  
+  .left-image img {
+    width: 400px;
+    height: auto;
+  }
+  
+  .right-box {
+    width: 350px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    width: 200px;
+    margin-bottom: 20px;
+  }
+
+  form input{
+    max-width: 100%;
+    width: 325px;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    background-color: #0095f6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .signup-text, .login-text {
+    margin-top: 10px;
+  }
+  
+  .signup-text a, .login-text a {
+    color: #0095f6;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  

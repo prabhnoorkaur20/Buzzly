@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<!-- <div class="home-container">
+  <app-left-panel class="left-panel"></app-left-panel>
+  <app-middle-panel class="middle-panel"></app-middle-panel>
+  <app-right-panel class="right-panel"></app-right-panel>
+</div> -->
+
+<div class="home-container">
+  <app-left-panel></app-left-panel>
+
+  <div class="middle-panel" [class.expanded]="isRightPanelCollapsed">
+    <app-middle-panel></app-middle-panel>
+  </div>
+
+  <app-right-panel (panelToggled)="onRightPanelToggle($event)"></app-right-panel>
+</div>

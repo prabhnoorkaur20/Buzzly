@@ -1,0 +1,15 @@
+<div class="right-panel" [class.collapsed]="isCollapsed">
+    <button class="collapse-btn" (click)="togglePanel()">
+      {{ isCollapsed ? '▶ Expand' : '◀ Collapse' }}
+    </button>
+  
+    <div class="news-container" *ngIf="!isCollapsed">
+      <h3>🔥 What's Buzzing</h3>
+      <div *ngFor="let news of newsHeadlines" class="news-card">
+        <span class="category-icon">{{ getCategoryIcon(news.category) }}</span>
+        <p class="headline">{{ news.title }}</p>
+        <a [href]="news.link" target="_blank" class="read-more">Read more...</a>
+      </div>
+    </div>
+  </div>
+  

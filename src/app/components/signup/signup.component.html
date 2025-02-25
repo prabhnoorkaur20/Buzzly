@@ -1,0 +1,71 @@
+<!-- <div class="auth-container">
+    <h2>Sign Up</h2>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <label>Full Name:</label>
+      <input type="text" formControlName="fullName" required />
+      <label>Email:</label>
+      <input type="email" formControlName="email" required />
+      <label>Mobile No:</label>
+      <input type="text" formControlName="mobileNo" required />
+      <label>Password:</label>
+      <input type="password" formControlName="password" required />
+      <label>Gender:</label>
+      <select formControlName="gender">
+        <option value="">Select Gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </form>
+    <p>Already have an account? <a routerLink="/login">Login</a></p>
+  </div>
+   -->
+
+<div class="container">
+  <div class="left-image">
+    <img [src]="signupImg" alt="Buzzly Preview" />
+  </div>
+
+  <div class="right-box">
+    <img [src]="logotext" alt="Buzzly Logo" class="logo" />
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <input
+        type="text"
+        formControlName="fullName"
+        placeholder="Full Name"
+        required
+      />
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="text"
+        formControlName="mobileNo"
+        placeholder="Mobile No"
+        required
+      />
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        required
+      />
+      <select formControlName="gender">
+        <option value="">Select Gender (Optional)</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <button type="submit">Sign up</button>
+    </form>
+
+    <p class="login-text">
+      Already have an account?
+      <a (click)="navigateToLogin()">Log in</a>
+    </p>
+  </div>
+</div>

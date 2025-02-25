@@ -1,0 +1,23 @@
+.home-container {
+    display: flex;
+    gap: 10px;
+    height: 100vh;
+    padding: 10px;
+  }
+  
+  .left-panel, .right-panel {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }  
+
+  .middle-panel {
+    flex: 1;
+    transition: flex 0.3s ease;
+  } 
+  
+  .middle-panel.expanded {
+    flex: 2;
+  }
+  
