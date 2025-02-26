@@ -1,16 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  logo='';
+  @Input() logo: string = ''; // Add logo input if needed
 
-  constructor(){
-    this.logo='images/logo.png'
+  constructor(private router: Router) {
+    this.logo = 'images/logo.png';
+  } // Inject Router
+
+  navigateToHome(): void {
+    this.router.navigate(['/home']); // Navigate to home component
   }
 
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']); // Navigate to profile component
+  }
+
+  navigateToNotification(): void {
+    this.router.navigate(['/notification']); // Navigate to home component
+  }
 }

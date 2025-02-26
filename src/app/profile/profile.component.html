@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="profile-container">
+  <div class="profile-content-wrapper">
+    <div class="profile-header" *ngIf="user">
+      <img [src]="user.avatar" alt="Profile Picture" />
+      <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+      <p>Email: {{ user.email }}</p>
+      <button (click)="enableEdit()">Edit Profile</button>
+      <div *ngIf="isEditing">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" [(ngModel)]="editedUser.first_name" />
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" [(ngModel)]="editedUser.last_name" />
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="editedUser.email" />
+      </div>
+    </div>
+    <div class="posts-grid">
+      <div *ngFor="let post of posts" class="post-item">
+        <div *ngIf="post.mediaType === 'image'">
+          <img [src]="post.mediaUrl" alt="Post Image" />
+        </div>
+        <div *ngIf="post.mediaType === 'video'">
+          <video controls [src]="post.mediaUrl"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-right-panel></app-right-panel>
+</div>

@@ -1,0 +1,116 @@
+.main-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: flex-start; /* Align to the top */
+    width: 100%;
+  }
+  
+  .notification-container {
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 400px; /* Adjust width as needed */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px 20px; /* Add equal left and right margin */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  app-right-panel {
+    margin: 20px 0 20px auto; /* Push to the right */
+    width: 300px; /* Adjust width as needed */
+  }
+  
+  /* Rest of your notification styles */
+  .notification-container h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .notification {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .notification:last-child {
+    border-bottom: none;
+  }
+  
+  .notification-content {
+    flex-grow: 1;
+  }
+  
+  .notification-content p {
+    margin: 5px 0;
+    color: #444;
+  }
+  
+  .notification-timestamp {
+    font-size: 0.9em;
+    color: #888;
+    margin-top: 5px;
+  }
+  
+  .notification-actions button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification-actions button:hover {
+    background-color: #0056b3;
+  }
+  
+  .notification-actions button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+  }
+  
+  .notification-actions button:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  .notification-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .notification-container button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    align-self: center;
+  }
+  
+  .notification-container button:hover {
+    background-color: #5a6268;
+  }
+  
+  .notification-container button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  }
