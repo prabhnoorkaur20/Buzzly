@@ -34,7 +34,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/1' },
       },
       id: 1,
-      reason: 'Work package "Task 1" has been updated.',
+      reason: 'Profile Picture has been Updated.',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 3600000).toISOString(), // 1 hour ago
       updatedAt: new Date(Date.now() - 3600000).toISOString(),
@@ -47,7 +47,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/2' },
       },
       id: 2,
-      reason: 'You have been assigned to project "Project 2".',
+      reason: 'You have new message from John".',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 7200000).toISOString(), // 2 hours ago
       updatedAt: new Date(Date.now() - 7200000).toISOString(),
@@ -60,7 +60,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/3' },
       },
       id: 3,
-      reason: 'New comment on work package "Bug Fix".',
+      reason: 'Priya liked your post.',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 10800000).toISOString(), // 3 hours ago
       updatedAt: new Date(Date.now() - 10800000).toISOString(),
@@ -73,7 +73,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/4' },
       },
       id: 4,
-      reason: 'Project "Project 3" has been completed.',
+      reason: 'Bob has commented on you Post',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 14400000).toISOString(), // 4 hours ago
       updatedAt: new Date(Date.now() - 14400000).toISOString(),
@@ -86,7 +86,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/5' },
       },
       id: 5,
-      reason: 'New task "Feature Implementation" assigned to you.',
+      reason: 'Sylvia, Who you might know is on Buzzly.',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 18000000).toISOString(), // 5 hours ago
       updatedAt: new Date(Date.now() - 18000000).toISOString(),
@@ -99,7 +99,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/6' },
       },
       id: 6,
-      reason: 'Your request to join project "Project 4" has been approved.',
+      reason: 'You have a follow request from Tracey',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 21600000).toISOString(), // 6 hours ago
       updatedAt: new Date(Date.now() - 21600000).toISOString(),
@@ -112,7 +112,7 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/7' },
       },
       id: 7,
-      reason: 'Deadline approaching for work package "Documentation".',
+      reason: 'Wilson has invited you to follow cookingWithWilson page.',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 25200000).toISOString(), // 7 hours ago
       updatedAt: new Date(Date.now() - 25200000).toISOString(),
@@ -125,7 +125,8 @@ export class NotificationComponent implements OnInit {
         resource: { href: '/api/v3/work_packages/8' },
       },
       id: 8,
-      reason: 'Reminder: Review pending for work package "Code Review".',
+      reason:
+        'You have been invited by Sylvia to the event happening near you.',
       readIANATimeZone: 'UTC',
       createdAt: new Date(Date.now() - 28800000).toISOString(), // 8 hours ago
       updatedAt: new Date(Date.now() - 28800000).toISOString(),

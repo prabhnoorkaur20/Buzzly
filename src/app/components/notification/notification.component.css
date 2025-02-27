@@ -1,44 +1,43 @@
 .main-content {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: flex-start; /* Align to the top */
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
   }
   
   .notification-container {
     border: 1px solid #ddd;
     padding: 20px;
-    width: 400px; /* Adjust width as needed */
+    width: 400px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px 20px; /* Add equal left and right margin */
+    margin: 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  app-right-panel {
-    margin: 20px 0 20px auto; /* Push to the right */
-    width: 300px; /* Adjust width as needed */
-  }
-  
-  /* Rest of your notification styles */
   .notification-container h2 {
     font-size: 1.5em;
     margin-bottom: 20px;
     color: #333;
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
+    text-align: center;
   }
   
   .notification {
     border-bottom: 1px solid #eee;
     padding: 15px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    width: 100%;
   }
   
   .notification:last-child {
@@ -46,7 +45,7 @@
   }
   
   .notification-content {
-    flex-grow: 1;
+    width: 100%;
   }
   
   .notification-content p {
@@ -86,7 +85,9 @@
   
   .notification-actions {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
   }
   
   .notification:hover {
@@ -113,4 +114,43 @@
   .notification-container button:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
+  }
+  
+  /* Styles for What's Buzzing */
+  app-right-panel {
+    margin: 20px 20px;
+    width: 300px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    margin-left: auto; /* Push to the right */
+  }
+  
+  app-right-panel h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  app-right-panel .buzz-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+  }
+  
+  app-right-panel .buzz-item:last-child {
+    border-bottom: none;
+  }
+  
+  app-right-panel .buzz-item a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  app-right-panel .buzz-item a:hover {
+    text-decoration: underline;
   }
