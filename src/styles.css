@@ -150,3 +150,18 @@ body.dark-mode .moon-icon {
   stroke: #000 !important; 
   fill: #000 !important;
 }
+
+body.dark-mode .right-panel {
+  background-color: #333; /* Dark background color */
+  color: #eee; /* Light text color */
+}
+
+body.dark-mode .suggested-users-container {
+  background-color: #444; /* Slightly lighter background for cards */
+  border-color: #555; /* Darker border color */
+}
+
+body.dark-mode .user-name,
+body.dark-mode .follow-button {
+  color: #fff; /* Light text color for names and buttons */
+}
