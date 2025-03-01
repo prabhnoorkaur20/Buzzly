@@ -23,10 +23,17 @@ export class MiddlePanelComponent implements OnInit {
       this.posts = response.posts.map((post, index) => ({
         title: post.title,
         body: post.body,
-        imageUrl: `https://picsum.photos/600/400?random=${index}`, // Random image
+        likes: Math.floor(Math.random() * 100), // Random like count
+        liked: false,
+        imageUrl: `https://picsum.photos/600/400?random=${index}`,
         videoUrl:
-          index % 3 === 0 ? 'https://www.w3schools.com/html/mov_bbb.mp4' : '', // Dummy video every 3rd post
+          index % 3 === 0 ? 'https://www.w3schools.com/html/mov_bbb.mp4' : '',
       }));
     });
   }
+
+  toggleLike(post: any) {
+    post.liked = !post.liked;
+    post.likes += post.liked ? 1 : -1;
+  }  
 }

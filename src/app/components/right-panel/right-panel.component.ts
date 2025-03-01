@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 export class RightPanelComponent {
   newsHeadlines: { title: string; category: string; link: string }[] = [];
-  isCollapsed = false; // State for collapse
 
   @Output() panelToggled = new EventEmitter<boolean>();
 
@@ -45,10 +44,5 @@ export class RightPanelComponent {
       general: '📢'
     };
     return icons[category] || '📢';
-  }
-
-  togglePanel() {
-    this.isCollapsed = !this.isCollapsed;
-    this.panelToggled.emit(this.isCollapsed); // Notify parent
   }
 }
