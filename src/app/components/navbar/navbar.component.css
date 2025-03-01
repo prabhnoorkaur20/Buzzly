@@ -23,18 +23,52 @@
   gap: 20px;
   font-size: 24px;
   cursor: pointer;
-  /* color: rgb(69, 208, 226); */
-  color: radial-gradient(
-    90deg,
-    rgba(11, 11, 11, 1) 0%,
-    rgba(69, 208, 226, 1) 9%,
-    rgba(29, 53, 129, 1) 46%,
-    rgba(69, 208, 226, 1) 94%,
-    rgba(8, 8, 8, 1) 100%
-  );
+  color: radial-gradient(90deg, rgba(11, 11, 11, 1) 0%, rgba(69, 208, 226, 1) 9%, rgba(29, 53, 129, 1) 46%, rgba(69, 208, 226, 1) 94%, rgba(8, 8, 8, 1) 100%);
   fill: none;
   stroke: #646464;
   stroke-width: 1px;
   stroke-dasharray: 2, 2;
   stroke-linejoin: round;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.switch-slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  transition: left 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sun-icon,
+.moon-icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: stroke 0.3s ease;
+}
+
+.sun-icon {
+  stroke: #f08000; /* Darker orange for the sun */
+  fill: #f08000;
+}
+
+.moon-icon {
+  stroke: #666; /* Darker gray for the moon */
+  display: none; /* Initially hide the moon icon */
 }

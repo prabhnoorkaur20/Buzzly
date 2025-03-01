@@ -2,18 +2,35 @@
 <div class="main-content">
   <div class="notification-container">
     <h2>Notifications</h2>
-    <div *ngFor="let notification of notifications" class="notification">
-      <div class="notification-content">
-        <p>{{ notification.reason }}</p>
-        <p class="notification-timestamp">
-          {{ notification.createdAt | date : "shortTime" }}
-        </p>
+    <div
+      class="notification-cards"
+      *ngIf="notifications.length > 0; else noNotifications"
+    >
+      <div
+        *ngFor="let notification of notifications"
+        class="notification"
+        [class.unread]="!notification.read"
+        [class.read]="notification.read"
+      >
+        <div class="notification-content">
+          <p>{{ notification.reason }}</p>
+          <p class="notification-timestamp">
+            {{ notification.createdAt | date : "shortTime" }}
+          </p>
+        </div>
+        <div class="notification-actions">
+          <button
+            *ngIf="!notification.read"
+            (click)="markAsRead(notification.id)"
+          >
+            Mark Read
+          </button>
+        </div>
       </div>
-      <div class="notification-actions">
-        <button (click)="markAsRead(notification.id)">Mark Read</button>
-      </div>
+      <button (click)="clearNotifications()">Clear All</button>
     </div>
-    <button (click)="clearNotifications()">Clear All</button>
+    <ng-template #noNotifications>
+      <p *ngIf="showNoNotificationsMessage">No new notifications.</p>
+    </ng-template>
   </div>
-  <app-right-panel></app-right-panel>
 </div>

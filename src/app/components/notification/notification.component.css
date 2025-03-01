@@ -10,15 +10,19 @@
   .notification-container {
     border: 1px solid #ddd;
     padding: 20px;
-    width: 400px;
+    width: 600px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 20px 20px;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .notification-cards{
+    width:532px;
   }
   
   .notification-container h2 {
@@ -32,11 +36,10 @@
   
   .notification {
     border-bottom: 1px solid #eee;
-    padding: 15px 0;
+    padding: 10px 5px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    justify-content: space-between;
+    align-items: flex-start;
     width: 100%;
   }
   
@@ -45,12 +48,15 @@
   }
   
   .notification-content {
-    width: 100%;
+    flex-grow: 1;
+    text-align: left;
+    word-wrap: break-word;
   }
   
   .notification-content p {
     margin: 5px 0;
     color: #444;
+    padding: 5px 5px;
   }
   
   .notification-timestamp {
@@ -68,6 +74,7 @@
     cursor: pointer;
     font-size: 0.9em;
     transition: background-color 0.3s ease;
+    min-width: 80px;
   }
   
   .notification-actions button:hover {
@@ -79,15 +86,9 @@
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
   }
   
-  .notification-actions button:not(:last-child) {
-    margin-right: 10px;
-  }
-  
   .notification-actions {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 10px;
+    align-items: center;
   }
   
   .notification:hover {
@@ -116,41 +117,14 @@
     box-shadow: 0 0 0 2px rgba(108, 117, 125, 0.5);
   }
   
-  /* Styles for What's Buzzing */
-  app-right-panel {
-    margin: 20px 20px;
-    width: 300px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
-    margin-left: auto; /* Push to the right */
+  /* Highlight unread notifications */
+  .notification.unread {
+    background-color: #b0f5fe;
   }
   
-  app-right-panel h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    color: #333;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
+  /* Change color when marked as read */
+  .notification.read {
+    background-color: #f5f5f5;
   }
+
   
-  app-right-panel .buzz-item {
-    border-bottom: 1px solid #eee;
-    padding: 15px 0;
-  }
-  
-  app-right-panel .buzz-item:last-child {
-    border-bottom: none;
-  }
-  
-  app-right-panel .buzz-item a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  app-right-panel .buzz-item a:hover {
-    text-decoration: underline;
-  }

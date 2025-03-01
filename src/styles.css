@@ -1,1 +1,152 @@
-/* You can add global styles to this file, and also import other style files */
+body.dark-mode .navbar {
+  background-color: #333;
+  color: #e0e0e0; /* Slightly lighter text for navbar */
+}
+
+body.dark-mode .search-bar {
+  background-color: #333;
+  color: #fff;
+  border-color: #666;
+}
+
+body.dark-mode .icons svg {
+  stroke: #e0e0e0;
+}
+
+body.dark-mode .splash-screen {
+  background-color: #333;
+}
+
+body.dark-mode .welcome-text {
+  color: #eee;
+}
+
+body.dark-mode .home-container {
+  background-color: #222;
+  color: #f0f0f0; /* Brighter text for home container */
+}
+
+body.dark-mode app-right-panel {
+  background-color: #222;
+  color: #f0f0f0; /* Brighter text for home container */
+}
+
+
+body.dark-mode .middle-panel{
+  background-color: #222;
+  color: #f0f0f0; /* Brighter text for middle panel */
+}
+
+body.dark-mode {
+  background-color: #181818;
+  color: #f5f5f5; /* Even brighter base text color */
+}
+
+body.dark-mode .main-content {
+  background-color: #202020;
+  color: #f0f0f0;
+  padding: 20px;
+}
+
+body.dark-mode .notification-container {
+  background: linear-gradient(to bottom, #2a2a2a, #252525);
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  margin: 20px auto;
+  width: 600px;
+}
+
+body.dark-mode .notification-cards{
+  width:532px;
+}
+
+body.dark-mode .notification-container h2 {
+  color: #fff !important; /* White heading */
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+body.dark-mode .notification {
+  background-color: #282828;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .notification:hover {
+  background-color: #303030;
+}
+
+body.dark-mode .notification-content p {
+  color: #f0f0f0 !important; /* Brighter text for notification content */
+  margin: 8px 0;
+}
+
+body.dark-mode .notification-timestamp {
+  color: #b0b0b0; /* Lighter timestamp color */
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+body.dark-mode .notification-actions button {
+  background-color: #424242;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+body.dark-mode .notification-actions button:hover {
+  background-color: #555;
+}
+
+body.dark-mode .notification-container button {
+  background-color: #383838;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .notification-container button:hover {
+  background-color: #484848;
+}
+
+body.dark-mode .notification.unread {
+  background-color: #29434e;
+}
+
+body.dark-mode .notification.read {
+  background-color: #222;
+}
+
+body.dark-mode .profile-header p{
+  color: #fff !important;
+}
+
+body.dark-mode .toggle-switch {
+  background-color: #2196F3; /* Blue background in dark mode */
+}
+
+body.dark-mode .switch-slider {
+  left: 26px; /* Move the slider to the right in dark mode */
+}
+
+body.dark-mode .sun-icon {
+  display: none; /* Hide the sun icon in dark mode */
+}
+
+body.dark-mode .moon-icon {
+  display: block; /* Show the moon icon in dark mode */
+  stroke: #000 !important; 
+  fill: #000 !important;
+}

@@ -4,11 +4,13 @@
   <app-middle-panel class="middle-panel"></app-middle-panel>
   <app-right-panel class="right-panel"></app-right-panel>
 </div> -->
+<div *ngIf="showAnimation" class="splash-screen">
+  <img [src]="logo" alt="Buzzly Logo" class="splash-logo" />
+  <h1 class="welcome-text">Welcome to Buzzly</h1>
+</div>
 
-<div class="home-container">
-  <app-left-panel></app-left-panel>
-
-  <div class="middle-panel" [class.expanded]="isRightPanelCollapsed">
+<div class="home-container" *ngIf="!showAnimation">
+  <div class="middle-panel">
     <app-middle-panel></app-middle-panel>
   </div>
 
