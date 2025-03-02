@@ -9,6 +9,7 @@ export class AuthService {
   private usersUrl = '/api/OnlineTest/GetAllUsers';
   private signupUrl = '/api/OnlineTest/createNewUser';
   private loginUrl = '/api/OnlineTest/Login';
+  private isLoggedIn = false;
 
   constructor(private http: HttpClient) {}
 
@@ -21,6 +22,19 @@ export class AuthService {
   }
 
   login(credentials: any): Observable<any> {
+    this.isLoggedIn = true;
+    localStorage.setItem('isLoggedIn', 'true');
     return this.http.post<any>(this.loginUrl, credentials);
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    localStorage.removeItem('isLoggedIn');
+  }
+
+  isAuthenticated(): boolean {
+    const storedStatus = localStorage.getItem('isLoggedIn');
+    this.isLoggedIn = storedStatus === 'true';
+    return this.isLoggedIn;
   }
 }

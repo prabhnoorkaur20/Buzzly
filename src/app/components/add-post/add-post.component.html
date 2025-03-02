@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="add-post-container">
+    <h2>Create a Post</h2>
+  
+    <textarea
+      [(ngModel)]="postText"
+      placeholder="What's on your mind?"
+    ></textarea>
+  
+    <div class="file-upload">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*, video/*" id="fileInput" style="display: none;" />
+      <label for="fileInput" class="upload-label">
+        <i class="fas fa-upload"></i> Choose File
+      </label>
+      <button *ngIf="selectedFile" (click)="clearFile()">Clear File</button>
+    </div>
+  
+    <div *ngIf="previewUrl" class="preview">
+      <img *ngIf="selectedFileType === 'image'" [src]="previewUrl" alt="Preview" />
+    </div>
+  
+    <button (click)="submitPost()">Post</button>
+  </div>

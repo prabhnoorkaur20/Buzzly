@@ -7,6 +7,9 @@ import { RightPanelComponent } from './components/right-panel/right-panel.compon
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { ProfileComponent } from './profile/profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { AddPostComponent } from './components/add-post/add-post.component';
+import { AuthGuard } from './services/auth-guard';
+import { ChatComponent } from './chat/chat.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,10 +20,12 @@ export const routes: Routes = [
     children: [
       { path: 'middle', component: MiddlePanelComponent },
       { path: 'right', component: RightPanelComponent },
-    ],
+    ], canActivate: [AuthGuard],
   },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'edit-profile', component: EditProfileComponent },
-  { path: 'notification', component: NotificationComponent },
+  { path: 'addPost', component: AddPostComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard]  },
+  { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]  },
+  { path: 'notification', component: NotificationComponent, canActivate: [AuthGuard]  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 ];

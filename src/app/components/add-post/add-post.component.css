@@ -1,0 +1,105 @@
+.add-post-container {
+    width: 500px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 1px solid #e0f2f7; /* Light teal border */
+    border-radius: 8px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .add-post-container h2 {
+    color: #008080; /* Teal for heading */
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  textarea {
+    width: calc(100% - 22px); /* Adjust for padding and border */
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #b2dfdb; /* Light teal border for textarea */
+    border-radius: 6px;
+    resize: vertical;
+    font-size: 16px;
+    color: #333; /* Darker text for readability */
+    background-color: #f8f8f8; /* Light background */
+  }
+  
+  textarea:focus {
+    outline: none;
+    border-color: #008080; /* Highlight teal on focus */
+    box-shadow: 0 0 5px rgba(0, 128, 128, 0.5); /* Subtle teal glow on focus */
+  }
+  
+  .file-upload {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .upload-label {
+    background-color: #008080; /* Teal background for button */
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .upload-label:hover {
+    background-color: #006666; /* Darker teal on hover */
+  }
+  
+  .file-upload button {
+    background-color: #e0f2f7; /* Light teal background for clear button */
+    color: #008080; /* Teal text */
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload button:hover {
+    background-color: #b2dfdb; /* Darker light teal on hover */
+  }
+  
+  .preview {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  button {
+    background-color: #008080; /* Teal background for post button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%; /* Full width button */
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #006666; /* Darker teal on hover */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .add-post-container {
+      width: 90%; /* Adjust width for smaller screens */
+      margin: 10px auto;
+      padding: 15px;
+    }
+  }

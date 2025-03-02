@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -20,12 +21,12 @@ export class SignupComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.signupForm = this.fb.group({
       fullName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      mobileNo: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      emailid: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       gender: [''], // Optional
     });
@@ -38,11 +39,12 @@ export class SignupComponent {
   }
 
   onSubmit() {
+    console.log("on submit called");
     if (this.signupForm.valid) {
       this.authService.signUp(this.signupForm.value).subscribe(
         (response) => {
           console.log('Signup Successful', response);
-          this.router.navigate(['/login']); // Redirect to login page after signup
+          this.router.navigate(['/login']); 
         },
         (error) => {
           this.errorMessage = 'Signup failed. Try again.';

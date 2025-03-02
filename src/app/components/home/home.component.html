@@ -11,7 +11,7 @@
 
 <div class="home-container" *ngIf="!showAnimation">
   <div class="middle-panel">
-    <app-middle-panel></app-middle-panel>
+    <app-middle-panel [localStoragePosts]="posts"></app-middle-panel>
   </div>
 
   <app-right-panel></app-right-panel>

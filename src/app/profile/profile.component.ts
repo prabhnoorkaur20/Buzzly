@@ -1,237 +1,112 @@
-// import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { CommonModule } from '@angular/common';
-// import { FormsModule } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { NavbarComponent } from '../components/navbar/navbar.component';
-// import { RightPanelComponent } from '../components/right-panel/right-panel.component';
-// import { Subscription } from 'rxjs';
-// import { UserService } from '../services/user.service';
-
-// interface User {
-//   id: number;
-//   email: string;
-//   first_name: string;
-//   last_name: string;
-//   avatar: string;
-// }
-
-// interface Post {
-//   id: number;
-//   userId: number;
-//   mediaType: 'image' | 'video';
-//   mediaUrl: string;
-//   caption?: string;
-// }
-
-// @Component({
-//   selector: 'app-profile',
-//   imports: [CommonModule, FormsModule, NavbarComponent, RightPanelComponent],
-//   templateUrl: './profile.component.html',
-//   styleUrls: ['./profile.component.css'],
-// })
-// export class ProfileComponent implements OnInit, OnDestroy {
-//   user: User | null = null;
-//   isEditing = false;
-//   editedUser: User = {
-//     id: 0,
-//     email: '',
-//     first_name: '',
-//     last_name: '',
-//     avatar: '',
-//   };
-//   posts: Post[] = [];
-//   private userSubscription: Subscription | undefined;
-
-//   constructor(
-//     private http: HttpClient,
-//     private router: Router,
-//     private userService: UserService,
-//     private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
-//   ) {}
-
-//   ngOnInit(): void {
-//     this.fetchUser();
-//     this.fetchPosts();
-//     this.userSubscription = this.userService.currentUser.subscribe((user) => {
-//       if (user) {
-//         this.user = user;
-//         this.cdr.detectChanges(); // Force change detection
-//       }
-//     });
-//   }
-
-//   fetchUser(): void {
-//     this.http.get<any>('https://reqres.in/api/users/1').subscribe(
-//       (response) => {
-//         console.log('API response:', response); // Add this line
-//         this.user = response.data;
-//         if (this.user) {
-//           this.editedUser = { ...this.user };
-//         }
-//       },
-//       (error) => {
-//         console.error('Error fetching user data:', error);
-//       }
-//     );
-//   }
-
-//   fetchPosts(): void {
-//     this.http
-//       .get<any[]>('https://jsonplaceholder.typicode.com/posts')
-//       .subscribe(
-//         (apiPosts) => {
-//           this.posts = apiPosts.map((post) => ({
-//             id: post.id,
-//             userId: post.userId,
-//             mediaType: 'image',
-//             mediaUrl: `https://picsum.photos/id/${post.id}/500/300`,
-//             caption: post.title,
-//           }));
-//         },
-//         (error) => {
-//           console.error('Error fetching posts:', error);
-//         }
-//       );
-//   }
-
-//   enableEdit(): void {
-//     console.log('User data before navigation:', this.user); // Add this line
-//     if (this.user) {
-//       this.router.navigate(['/edit-profile'], {
-//         state: { user: this.user },
-//       });
-//     } else {
-//       console.error('User data is null or undefined.');
-//     }
-//   }
-
-//   ngOnDestroy(): void {
-//     if (this.userSubscription) {
-//       this.userSubscription.unsubscribe();
-//     }
-//   }
-// }
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../components/navbar/navbar.component';
-import { RightPanelComponent } from '../components/right-panel/right-panel.component';
+import { AuthService } from '../services/auth.service';
 
-interface User {
-  id: number;
-  email: string;
-  first_name: string;
-  last_name: string;
-  avatar: string;
+interface UserDetails {
+  userId: number;
+  emailid: string;
+  mobileNo: string;
+  password: string;
+  fullName: string;
+  gender: string;
+  registrationCode: string;
+  collegeName: string;
+  stream: string;
+  role: string;
 }
 
-interface Post {
-  id: number;
-  userId: number;
-  mediaType: 'image' | 'video';
-  mediaUrl: string;
-  caption?: string;
-}
-
-interface JsonPlaceholderPost {
-  map: any;
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
+interface ReqresUserResponse {
+  data: {
+    avatar: string;
+  };
 }
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, NavbarComponent, RightPanelComponent],
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  imports: [FormsModule, CommonModule, NavbarComponent],
+  styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit, OnDestroy {
-  user: User | null = null;
-  isEditing = false;
-  editedUser: User = {
-    id: 0,
-    email: '',
-    first_name: '',
-    last_name: '',
-    avatar: '',
+export class ProfileComponent implements OnInit {
+  userDetails: UserDetails | null = null;
+  editableUserDetails: UserDetails = {
+    userId: 0,
+    emailid: '',
+    mobileNo: '',
+    password: '',
+    fullName: '',
+    gender: '',
+    registrationCode: '',
+    collegeName: '',
+    stream: '',
+    role: '',
   };
-  posts: Post[] = [];
-  private userSubscription: Subscription | undefined;
+  profileImage: string | null = null;
+  isEditMode: boolean = false;
+  userId: number = 1; // Replace with actual user ID
 
-  constructor(
-    private http: HttpClient,
-    private userService: UserService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  faEdit = faEdit;
+
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.fetchUser();
-    this.fetchPosts();
-    this.userSubscription = this.userService.currentUser.subscribe((user) => {
-      if (user) {
-        this.user = user;
-        this.cdr.detectChanges();
+    this.fetchUserDetails();
+    this.fetchProfileImage();
+  }
+
+  fetchUserDetails(): void {
+    this.authService.getAllUsers().subscribe(response => {
+      console.log("API Response:", response.data);
+  
+      if (Array.isArray(response.data)) {
+        this.userDetails = response.data.find((user: UserDetails) => user.userId === 25) || null;
+      } else if (response && response.data) {
+        this.userDetails = response.data.find((user: UserDetails) => user.userId === 25) || null;
       }
+  
+      if (this.userDetails) {
+        this.editableUserDetails = { ...this.userDetails };
+        console.log("User details found:", this.userDetails);
+      } else {
+        console.warn("User not found in response");
+      }
+    }, error => {
+      console.error("Error fetching user details:", error);
     });
   }
-
-  fetchUser(): void {
-    this.http.get<any>('https://reqres.in/api/users/1').subscribe(
-      (response) => {
-        console.log('API response:', response);
-        this.user = response.data;
-        if (this.user) {
-          this.editedUser = { ...this.user };
-        }
-      },
-      (error) => {
-        console.error('Error fetching user data:', error);
-      }
-    );
+  
+  fetchProfileImage(): void {
+    fetch(`https://reqres.in/api/users/${this.userId}`)
+      .then(response => response.json())
+      .then((data: ReqresUserResponse) => {
+        this.profileImage = data.data.avatar;
+      })
+      .catch(error => console.error('Error fetching profile image:', error));
   }
 
-  fetchPosts(): void {
-    this.http
-      .get<JsonPlaceholderPost>('https://jsonplaceholder.typicode.com/posts')
-      .subscribe(
-        (apiPosts: JsonPlaceholderPost) => {
-          this.posts = apiPosts.map((post: JsonPlaceholderPost) => ({
-            id: post.id,
-            userId: post.userId,
-            mediaType: 'image',
-            mediaUrl: `https://picsum.photos/id/${post.id}/500/300`,
-            caption: post.title,
-          }));
-        },
-        (error) => {
-          console.error('Error fetching posts:', error);
-        }
-      );
-  }
-
-  saveProfile(): void {
-    if (this.user) {
-      this.user = { ...this.editedUser };
-    }
-    this.isEditing = false;
-  }
-
-  cancelEdit(): void {
-    this.isEditing = false;
-    if (this.user) {
-      this.editedUser = { ...this.user };
+  toggleEdit(): void {
+    this.isEditMode = !this.isEditMode;
+    if (this.isEditMode && this.userDetails) {
+      this.editableUserDetails = { ...this.userDetails };
     }
   }
 
-  ngOnDestroy(): void {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
+  saveChanges(): void {
+    if (this.userDetails) {
+      this.editableUserDetails.userId = this.userDetails.userId; // Ensure userId is included
+      fetch('/api/OnlineTest/updateUser', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.editableUserDetails),
+      })
+      .then(() => {
+        this.userDetails = { ...this.editableUserDetails };
+        this.isEditMode = false;
+      })
+      .catch(error => console.error('Error saving changes:', error));
     }
   }
 }

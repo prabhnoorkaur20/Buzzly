@@ -55,6 +55,10 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     this.router.navigate(['/home']);
   }
 
+  navigateToAddPost(): void {
+    this.router.navigate(['/addPost']);
+  }
+
   navigateToProfile(): void {
     this.router.navigate(['/profile']);
   }
@@ -65,6 +69,10 @@ export class NavbarComponent implements AfterViewInit, OnInit {
 
   navigateToLogin(): void {
     this.router.navigate(['/login']);
+  }
+
+  navigateToChat(): void {
+    this.router.navigate(['/chat']);
   }
 
   toggleDarkMode() {

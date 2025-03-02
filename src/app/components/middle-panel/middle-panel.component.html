@@ -1,9 +1,19 @@
 <div class="middle-panel">
   <h2>📝 Latest Posts</h2>
-  <div *ngFor="let post of posts" class="post-card">
+
+  <div *ngFor="let post of localStoragePosts" class="post-card">
+    <p>By {{ post.username }}</p>
+    <p *ngIf="post.text">{{ post.text }}</p>
+    <img *ngIf="post.fileType === 'image' && post.fileData" [src]="post.fileData" alt="Post Image" />
+    <video *ngIf="post.fileType === 'video' && post.fileData" [src]="post.fileData" controls></video>
+    <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
+      ❤️ {{ post.likes }}
+    </button>
+  </div>
+
+  <div *ngFor="let post of posts$ | async" class="post-card">
     <h4>{{ post.title }}</h4>
-    <p>By {{ getRandomUsername() }}</p>
-    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
+    <p>By {{ post.username }}</p> <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
     <video *ngIf="post.videoUrl" controls>
       <source [src]="post.videoUrl" type="video/mp4" />
       Your browser does not support the video tag.
@@ -12,5 +22,11 @@
     <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
       ❤️ {{ post.likes }}
     </button>
+  </div>
+
+  <div class="pagination">
+    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
+    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === getTotalPages()">Next</button>
   </div>
 </div>

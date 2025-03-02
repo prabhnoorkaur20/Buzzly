@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+<div class="chat-container">
+    <div class="chat-header">
+      <h3>Chat with [Friend's Name]</h3>
+    </div>
+  
+    <div class="chat-messages">
+      <div *ngFor="let message of messages" [class.your-message]="message.sender === 'you'">
+        <span class="sender">{{ message.sender === 'you' ? 'You' : message.sender }}:</span>
+        <span class="message-text">{{ message.text }}</span>
+      </div>
+    </div>
+  
+    <div class="chat-input">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Type your message..." (keyup.enter)="sendMessage()">
+      <button (click)="sendMessage()">Send</button>
+    </div>
+  </div>

@@ -28,7 +28,7 @@ export class RightPanelComponent {
 
   fetchNews() {
     this.newsService.getTrendingNews().subscribe((response) => {
-      this.newsHeadlines = response.results.slice(0, 5).map((news: any) => ({
+      this.newsHeadlines = response.articles.slice(0, 10).map((news: any) => ({
         title: this.shortenHeadline(news.title),
         category: news.category?.[0] || 'general',
         link: news.link,
