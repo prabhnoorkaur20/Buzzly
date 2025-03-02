@@ -1,15 +1,16 @@
 <div class="middle-panel">
-    <h2>📝 Latest Posts</h2>
-    <div *ngFor="let post of posts" class="post-card">
-      <h4>{{ post.title }}</h4>
-      <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
-      <video *ngIf="post.videoUrl" controls>
-        <source [src]="post.videoUrl" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <p>{{ post.body }}</p>
-      <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
-        ❤️ {{ post.likes }}
-      </button>
-    </div>
+  <h2>📝 Latest Posts</h2>
+  <div *ngFor="let post of posts" class="post-card">
+    <h4>{{ post.title }}</h4>
+    <p>By {{ getRandomUsername() }}</p>
+    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
+    <video *ngIf="post.videoUrl" controls>
+      <source [src]="post.videoUrl" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <p>{{ post.body }}</p>
+    <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
+      ❤️ {{ post.likes }}
+    </button>
   </div>
+</div>
