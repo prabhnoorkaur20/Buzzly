@@ -2,22 +2,47 @@
   <h2>📝 Latest Posts</h2>
 
   <!-- Combined posts display with pagination -->
-  <div *ngFor="let post of getCurrentPosts()" class="post-card">
+  <div *ngFor="let post of getCurrentPosts(); let i = index" class="post-card">
     <h4 *ngIf="post.title">{{ post.title }}</h4>
     <p>By {{ post.username }}</p>
-    <p *ngIf="post.text">{{ post.text }}</p>
-    <img *ngIf="post.fileType === 'image' && post.fileData" [src]="post.fileData" alt="Post Image" />
-    <video *ngIf="post.fileType === 'video' && post.fileData" [src]="post.fileData" controls></video>
     
-    <!-- Handle API post content -->
-    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
-    <video *ngIf="post.videoUrl" controls>
-      <source [src]="post.videoUrl" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <!-- Post text content if available -->
+    <p *ngIf="post.text">{{ post.text }}</p>
     <p *ngIf="post.body">{{ post.body }}</p>
     
-    <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
+    <!-- Media content -->
+    <div *ngIf="post.media && post.media.length > 0" class="media-container">
+      <!-- Single media item -->
+      <ng-container *ngIf="post.media.length === 1">
+        <img *ngIf="post.media[0].type === 'image'" [src]="post.media[0].url" alt="Post Image" class="post-media" />
+        <video *ngIf="post.media[0].type === 'video'" controls class="post-media">
+          <source [src]="post.media[0].url" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </ng-container>
+      
+      <!-- Multiple media items -->
+      <div *ngIf="post.media.length > 1" class="swiper-container">
+        <div class="swiper swiper-post-{{i}}">
+          <div class="swiper-wrapper">
+            <div *ngFor="let media of post.media" class="swiper-slide">
+              <img *ngIf="media.type === 'image'" [src]="media.url" alt="Post Image" class="post-media" />
+              <video *ngIf="media.type === 'video'" controls class="post-media">
+                <source [src]="media.url" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+          <!-- Add pagination -->
+          <div class="swiper-pagination"></div>
+          <!-- Add navigation arrows -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+    
+    <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }" class="like-button">
       ❤️ {{ post.likes }}
     </button>
   </div>

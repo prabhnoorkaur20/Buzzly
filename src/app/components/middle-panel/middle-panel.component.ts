@@ -1,25 +1,31 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+// Import the SwipeModule for standalone component
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
+// Interfaces
 interface Post {
   title?: string;
   body?: string;
   text?: string;
   likes: number;
   liked: boolean;
-  imageUrl?: string;
-  videoUrl?: string;
-  fileType?: string;
-  fileData?: string;
+  media: MediaItem[];
   userId?: number;
   username: string;
 }
 
+interface MediaItem {
+  type: 'image' | 'video';
+  url: string;
+}
+
 @Component({
   selector: 'app-middle-panel',
+  standalone: true,
   imports: [CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Add this for custom elements like swiper
   templateUrl: './middle-panel.component.html',
   styleUrls: ['./middle-panel.component.css'],
 })
@@ -31,12 +37,54 @@ export class MiddlePanelComponent implements OnInit {
   currentPage = 1;
   postsPerPage = 3;
 
-  @Input() localStoragePosts: Post[] = []; // Receive posts from HomeComponent
+  @Input() localStoragePosts: any[] = []; // Receive posts from HomeComponent
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    this.loadSwiper();
     this.fetchPosts();
+  }
+
+  // Dynamically load Swiper
+  loadSwiper() {
+    // Load Swiper JS and CSS dynamically
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js';
+    document.body.appendChild(script);
+
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css';
+    document.head.appendChild(link);
+
+    // Initialize Swiper after loading
+    script.onload = () => {
+      this.initializeSwiper();
+    };
+  }
+
+  // Initialize Swiper instances
+  initializeSwiper() {
+    setTimeout(() => {
+      const swipers = document.querySelectorAll('.swiper');
+      if (swipers.length > 0) {
+        swipers.forEach((swiperEl) => {
+          new (window as any).Swiper(swiperEl, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+        });
+      }
+    }, 100);
   }
 
   fetchPosts() {
@@ -50,21 +98,70 @@ export class MiddlePanelComponent implements OnInit {
           uniqueUsers.add(post.userId);
           return true;
         })
-        .map((post: { title: any; body: any; userId: any }, index: number) => ({
-          title: post.title,
-          body: post.body,
-          likes: Math.floor(Math.random() * 100),
-          liked: false,
-          imageUrl: `https://picsum.photos/600/400?random=${index}`,
-          videoUrl:
-            index % 3 === 0 ? 'https://www.w3schools.com/html/mov_bbb.mp4' : '',
-          userId: post.userId,
-          username: this.getRandomUsername(),
-        }));
+        .map((post: { title: any; body: any; userId: any }, index: number) => {
+          // Create media array with potential multiple items
+          const media: MediaItem[] = [];
+          
+          // Add image if available (always for demo)
+          media.push({
+            type: 'image',
+            url: `https://picsum.photos/600/400?random=${index}`
+          });
+          
+          // Add video for some posts
+          if (index % 3 === 0) {
+            media.push({
+              type: 'video',
+              url: 'https://www.w3schools.com/html/mov_bbb.mp4'
+            });
+          }
+          
+          return {
+            title: post.title,
+            body: post.body,
+            likes: Math.floor(Math.random() * 100),
+            liked: false,
+            media: media,
+            userId: post.userId,
+            username: this.getRandomUsername(),
+          };
+        });
+      
+      // Convert localStorage posts to the new format
+      const formattedLocalPosts = this.localStoragePosts.map(post => {
+        const media: MediaItem[] = [];
+        
+        if (post.fileType === 'image' && post.fileData) {
+          media.push({
+            type: 'image',
+            url: post.fileData
+          });
+        }
+        
+        if (post.fileType === 'video' && post.fileData) {
+          media.push({
+            type: 'video',
+            url: post.fileData
+          });
+        }
+        
+        return {
+          text: post.text,
+          likes: post.likes || 0,
+          liked: post.liked || false,
+          media: media,
+          username: post.username
+        };
+      });
       
       // Combine local storage posts with API posts
-      this.posts = [...this.localStoragePosts, ...apiPosts];
+      this.posts = [...formattedLocalPosts, ...apiPosts];
       this.fetchUsers();
+      
+      // Initialize Swiper after posts are loaded
+      setTimeout(() => {
+        this.initializeSwiper();
+      }, 500);
     });
   }
 
@@ -85,17 +182,20 @@ export class MiddlePanelComponent implements OnInit {
     return names[randomIndex];
   }
 
-  toggleLike(post: any) {
+  toggleLike(post: Post) {
     post.liked = !post.liked;
-    if (typeof post.likes !== 'number') {
-      post.likes = 0; // Initialize likes if not a number
-    }
     post.likes += post.liked ? 1 : -1;
 
-    // Update localStorage only if it's a localStorage post
-    if (this.localStoragePosts.includes(post)) {
-      const index = this.localStoragePosts.indexOf(post);
-      this.localStoragePosts[index] = post;
+    // Update localStorage if needed
+    const localPost = this.localStoragePosts.find(p => 
+      p.username === post.username && 
+      ((p.text && p.text === post.text) || 
+       (p.fileData && post.media.some(m => m.url === p.fileData)))
+    );
+    
+    if (localPost) {
+      localPost.liked = post.liked;
+      localPost.likes = post.likes;
       localStorage.setItem('posts', JSON.stringify(this.localStoragePosts));
     }
   }
