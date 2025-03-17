@@ -4,13 +4,16 @@ import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 
 interface Post {
-  title: string;
-  body: string;
+  title?: string;
+  body?: string;
+  text?: string;
   likes: number;
   liked: boolean;
-  imageUrl: string;
-  videoUrl: string;
-  userId: number;
+  imageUrl?: string;
+  videoUrl?: string;
+  fileType?: string;
+  fileData?: string;
+  userId?: number;
   username: string;
 }
 
@@ -28,10 +31,7 @@ export class MiddlePanelComponent implements OnInit {
   currentPage = 1;
   postsPerPage = 3;
 
-  @Input() localStoragePosts: any[] = []; // Receive posts from HomeComponent
-
-  private postsSubject = new BehaviorSubject<Post[]>([]);
-  posts$ = this.postsSubject.asObservable();
+  @Input() localStoragePosts: Post[] = []; // Receive posts from HomeComponent
 
   constructor(private http: HttpClient) {}
 
@@ -42,7 +42,7 @@ export class MiddlePanelComponent implements OnInit {
   fetchPosts() {
     this.http.get<{ posts: any }>(this.API_URL).subscribe((response) => {
       let uniqueUsers = new Set();
-      const newPosts = response.posts
+      const apiPosts = response.posts
         .filter((post: { userId: unknown }) => {
           if (uniqueUsers.has(post.userId)) {
             return false;
@@ -59,10 +59,11 @@ export class MiddlePanelComponent implements OnInit {
           videoUrl:
             index % 3 === 0 ? 'https://www.w3schools.com/html/mov_bbb.mp4' : '',
           userId: post.userId,
-          username: this.getRandomUsername(), // Generate username here
+          username: this.getRandomUsername(),
         }));
-      this.posts = newPosts;
-      this.postsSubject.next(newPosts); // Update BehaviorSubject
+      
+      // Combine local storage posts with API posts
+      this.posts = [...this.localStoragePosts, ...apiPosts];
       this.fetchUsers();
     });
   }
@@ -75,31 +76,10 @@ export class MiddlePanelComponent implements OnInit {
 
   getRandomUsername(): string {
     const names = [
-      'Alice',
-      'Bob',
-      'Charlie',
-      'Dave',
-      'Eve',
-      'Jona',
-      'Faye',
-      'Emily',
-      'Liam',
-      'Olivia',
-      'Noah',
-      'Emma',
-      'Sophia',
-      'Jackson',
-      'Aiden',
-      'Lucas',
-      'Mia',
-      'Isabella',
-      'Ethan',
-      'Ava',
-      'Jacob',
-      'Madison',
-      'Abigail',
-      'Daniel',
-      'Emily',
+      'Alice', 'Bob', 'Charlie', 'Dave', 'Eve', 'Jona', 'Faye',
+      'Emily', 'Liam', 'Olivia', 'Noah', 'Emma', 'Sophia',
+      'Jackson', 'Aiden', 'Lucas', 'Mia', 'Isabella', 'Ethan',
+      'Ava', 'Jacob', 'Madison', 'Abigail', 'Daniel', 'Emily',
     ];
     const randomIndex = Math.floor(Math.random() * names.length);
     return names[randomIndex];
@@ -112,7 +92,7 @@ export class MiddlePanelComponent implements OnInit {
     }
     post.likes += post.liked ? 1 : -1;
 
-    // Update localStorage
+    // Update localStorage only if it's a localStorage post
     if (this.localStoragePosts.includes(post)) {
       const index = this.localStoragePosts.indexOf(post);
       this.localStoragePosts[index] = post;
@@ -120,7 +100,7 @@ export class MiddlePanelComponent implements OnInit {
     }
   }
 
-  getCurrentPosts(): any {
+  getCurrentPosts(): Post[] {
     const startIndex = (this.currentPage - 1) * this.postsPerPage;
     const endIndex = startIndex + this.postsPerPage;
     return this.posts.slice(startIndex, endIndex);

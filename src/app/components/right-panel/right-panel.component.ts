@@ -31,7 +31,7 @@ export class RightPanelComponent {
       this.newsHeadlines = response.articles.slice(0, 10).map((news: any) => ({
         title: this.shortenHeadline(news.title),
         category: news.category?.[0] || 'general',
-        link: news.link,
+        link: news.url,
       }));
     });
   }

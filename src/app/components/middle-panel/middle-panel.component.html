@@ -1,24 +1,22 @@
 <div class="middle-panel">
   <h2>📝 Latest Posts</h2>
 
-  <div *ngFor="let post of localStoragePosts" class="post-card">
+  <!-- Combined posts display with pagination -->
+  <div *ngFor="let post of getCurrentPosts()" class="post-card">
+    <h4 *ngIf="post.title">{{ post.title }}</h4>
     <p>By {{ post.username }}</p>
     <p *ngIf="post.text">{{ post.text }}</p>
     <img *ngIf="post.fileType === 'image' && post.fileData" [src]="post.fileData" alt="Post Image" />
     <video *ngIf="post.fileType === 'video' && post.fileData" [src]="post.fileData" controls></video>
-    <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
-      ❤️ {{ post.likes }}
-    </button>
-  </div>
-
-  <div *ngFor="let post of posts$ | async" class="post-card">
-    <h4>{{ post.title }}</h4>
-    <p>By {{ post.username }}</p> <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
+    
+    <!-- Handle API post content -->
+    <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
     <video *ngIf="post.videoUrl" controls>
       <source [src]="post.videoUrl" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
-    <p>{{ post.body }}</p>
+    <p *ngIf="post.body">{{ post.body }}</p>
+    
     <button (click)="toggleLike(post)" [ngClass]="{ liked: post.liked }">
       ❤️ {{ post.likes }}
     </button>
