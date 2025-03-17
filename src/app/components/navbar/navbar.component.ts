@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,7 +28,8 @@ export class NavbarComponent implements AfterViewInit, OnInit {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private userService: UserService
+    private userService: UserService,
+    private authService: AuthService
   ) {
     this.logo = 'images/logo.png';
   }
@@ -67,8 +69,9 @@ export class NavbarComponent implements AfterViewInit, OnInit {
     this.router.navigate(['/notification']);
   }
 
-  navigateToLogin(): void {
-    this.router.navigate(['/login']);
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']); 
   }
 
   navigateToChat(): void {
